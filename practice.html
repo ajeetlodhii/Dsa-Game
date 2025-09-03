@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mx-auto p-4 py-8">
+    <h2 class="text-3xl font-bold mb-6 text-center">DSA Playground</h2>
+    <p class="text-gray-400 mb-8 text-center">Test algorithms with sample input/output. This is a non-gamified space for learning and visualization.</p>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">Sorting Visualizer</h3>
+            <p class="text-gray-400 mb-4">Watch different sorting algorithms in action.</p>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Algorithm</label>
+                <select id="sort-algorithm" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <option value="bubble">Bubble Sort</option>
+                    <option value="selection">Selection Sort</option>
+                    <option value="insertion">Insertion Sort</option>
+                    <option value="merge">Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
+                </select>
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Array Size</label>
+                <input type="range" id="array-size" min="5" max="50" value="10" class="w-full">
+                <div class="flex justify-between text-sm text-gray-400">
+                    <span>5</span>
+                    <span id="array-size-value">10</span>
+                    <span>50</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mb-6">
+                <button id="generate-array" class="btn-secondary">Generate New Array</button>
+                <button id="sort-button" class="btn-primary">Visualize Sort</button>
+                <button id="reset-array" class="btn-secondary">Reset</button>
+            </div>
+            
+            <div id="sorting-visualizer" class="w-full h-64 flex items-end justify-center gap-1">
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-400">
+                <p id="sort-steps">Steps: 0</p>
+                <p id="sort-time">Time: 0ms</p>
+            </div>
+        </div>
+        
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">Data Structure Visualizer</h3>
+            <p class="text-gray-400 mb-4">Experiment with different data structures.</p>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Structure</label>
+                <select id="ds-structure" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <option value="stack">Stack (LIFO)</option>
+                    <option value="queue">Queue (FIFO)</option>
+                    <option value="binary-tree">Binary Tree</option>
+                    <option value="linked-list">Linked List</option>
+                    <option value="hash-table">Hash Table</option>
+                    <option value="graph">Graph</option>
+                </select>
+            </div>
+            
+            <div id="ds-visualizer" class="w-full h-64 border-2 border-gray-600 rounded-lg p-4 mb-4 flex items-center justify-center text-gray-500">
+                Select a data structure to begin
+            </div>
+            
+            <div id="stack-controls" class="space-y-3">
+                <div class="flex gap-2">
+                    <input type="text" id="stack-input" placeholder="Value" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="stack-push" class="btn-primary">Push</button>
+                    <button id="stack-pop" class="btn-secondary">Pop</button>
+                </div>
+                <button id="stack-clear" class="btn-secondary w-full">Clear Stack</button>
+            </div>
+            
+            <div id="queue-controls" class="space-y-3 hidden">
+                <div class="flex gap-2">
+                    <input type="text" id="queue-input" placeholder="Value" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="queue-enqueue" class="btn-primary">Enqueue</button>
+                    <button id="queue-dequeue" class="btn-secondary">Dequeue</button>
+                </div>
+                <button id="queue-clear" class="btn-secondary w-full">Clear Queue</button>
+            </div>
+            
+            <div id="tree-controls" class="space-y-3 hidden">
+                <div class="flex gap-2">
+                    <input type="number" id="tree-value" placeholder="Value" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="tree-insert" class="btn-primary">Insert</button>
+                    <button id="tree-search" class="btn-secondary">Search</button>
+                </div>
+                <button id="tree-clear" class="btn-secondary w-full">Clear Tree</button>
+            </div>
+
+            <div id="linked-list-controls" class="space-y-3 hidden">
+                <div class="flex gap-2">
+                    <input type="text" id="linked-list-value" placeholder="Value" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="linked-list-insert" class="btn-primary">Insert at End</button>
+                    <button id="linked-list-delete" class="btn-secondary">Delete First</button>
+                </div>
+                <button id="linked-list-clear" class="btn-secondary w-full">Clear List</button>
+            </div>
+
+            <div id="hash-table-controls" class="space-y-3 hidden">
+                <div class="flex gap-2">
+                    <input type="text" id="hash-key" placeholder="Key" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="hash-insert" class="btn-primary">Insert</button>
+                    <button id="hash-search" class="btn-secondary">Search</button>
+                </div>
+                <button id="hash-clear" class="btn-secondary w-full">Clear Table</button>
+            </div>
+            
+            <div id="graph-controls" class="space-y-3 hidden">
+                <div class="flex gap-2">
+                    <input type="text" id="graph-node-value" placeholder="Node Value" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="graph-add-node" class="btn-primary">Add Node</button>
+                    <button id="graph-add-edge" class="btn-secondary">Add Edge</button>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="graph-start-node" placeholder="Start Node" class="flex-1 p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-primary-color focus:outline-none">
+                    <button id="graph-bfs" class="btn-primary">BFS</button>
+                    <button id="graph-dfs" class="btn-secondary">DFS</button>
+                </div>
+                <button id="graph-clear" class="btn-secondary w-full">Clear Graph</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mx-auto p-4 py-8">
+    <h2 class="text-3xl font-bold mb-6 text-center">Admin Panel</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">System Statistics</h3>
+            <div class="space-y-4">
+                <div class="p-4 rounded-lg bg-gray-700 bg-opacity-30">
+                    <p class="text-2xl font-bold text-primary-color">{{totalUsers}}</p>
+                    <p class="text-sm text-gray-400">Total Users</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-700 bg-opacity-30">
+                    <p class="text-2xl font-bold text-primary-color">{{totalScores}}</p>
+                    <p class="text-sm text-gray-400">Total Scores</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-700 bg-opacity-30">
+                    <p class="text-2xl font-bold text-primary-color">{{totalFeedback}}</p>
+                    <p class="text-sm text-gray-400">Feedback Messages</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-700 bg-opacity-30">
+                    <p class="text-2xl font-bold text-primary-color">{{ratedGames}}</p>
+                    <p class="text-sm text-gray-400">Rated Games</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+                <button id="backup-data" class="w-full btn-secondary">Create Data Backup</button>
+                <button id="clear-feedback" class="w-full btn-secondary">Clear All Feedback</button>
+                <button id="reset-all-progress" class="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 transition-colors">Reset All User Progress</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">Manage Users</h3>
+            <div class="overflow-x-auto">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Joined</th>
+                            <th>Games</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <img src="{{this.avatar}}" class="w-8 h-8 rounded-full mr-2" alt="{{this.username}}">
+                                        <span>{{this.username}}{{#if this.isAdmin}} <i class="fas fa-crown text-yellow-400"></i>{{/if}}</span>
+                                    </div>
+                                </td>
+                                <td>{{this.email}}</td>
+                                <td>{{this.createdAt}}</td>
+                                <td>{{this.gamesPlayed}}</td>
+                                <td>
+                                    <button onclick="deleteUser('{{this.username}}')" class="delete-btn" title="Delete user">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card p-6 animate-pop">
+            <h3 class="text-xl font-bold mb-4">Recent Feedback</h3>
+            <div class="space-y-4">
+                {{#if hasFeedback}}
+                    {{#each recentFeedback}}
+                        <div class="p-4 rounded-lg bg-gray-700 bg-opacity-30">
+                            <div class="flex justify-between mb-2">
+                                <p class="font-medium">{{this.name}}</p>
+                                <p class="text-sm text-gray-400">{{this.date}}</p>
+                            </div>
+                            <p class="font-medium text-primary-color mb-1">{{this.subject}}</p>
+                            <p class="text-sm mb-2">{{this.message}}</p>
+                            <span class="inline-block px-2 py-1 text-xs rounded-full {{#if this.status === 'unread'}}bg-yellow-500 text-white{{else}}bg-green-500 text-white{{/if}}">
+                                {{this.status}}
+                            </span>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p class="text-gray-500 text-center py-4">No feedback received yet</p>
+                {{/if}}
+            </div>
+            {{#if hasFeedback}}<a href="#view-all-feedback" class="btn-secondary mt-4 inline-block">View All Feedback</a>{{/if}}
+        </div>
+    </div>
+</div>
+</body>
+</html>
